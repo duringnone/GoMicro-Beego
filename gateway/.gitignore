@@ -1,0 +1,7 @@
+*.exe
+*.pid
+*.tmp
+*.zip
+/.idea
+acs*
+/*.exe~

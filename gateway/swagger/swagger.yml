@@ -1,0 +1,108 @@
+swagger: "2.0"
+info:
+  title: Micro Gateway
+  description: Gateway Service Of MicroService
+  version: 1.0.0
+  termsOfService: http://beego.me/
+  contact:
+    email: astaxie@gmail.com
+  license:
+    name: Apache 2.0
+    url: http://www.apache.org/licenses/LICENSE-2.0.html
+basePath: /gateway
+paths:
+  /mail/add-mail-config:
+    get:
+      tags:
+      - mail
+      description: 添加邮件模板
+      operationId: MailCtrl.添加邮件模板
+      parameters:
+      - in: query
+        name: emailName
+        description: 邮件配置名
+        required: true
+        type: string
+      - in: query
+        name: emailTitle
+        description: 邮件标题
+        required: true
+        type: string
+      - in: query
+        name: emailContent
+        description: 邮件内容
+        required: true
+        type: string
+      responses:
+        "200":
+          description: msg=Success
+  /mail/get-mail-config-list:
+    get:
+      tags:
+      - mail
+      description: 获取件模板列表
+      operationId: MailCtrl.获取件模板列表
+      parameters:
+      - in: query
+        name: page
+        description: 当前页数
+        type: string
+      - in: query
+        name: pageSize
+        description: 每页显示数
+        type: string
+      responses:
+        "200":
+          description: msg=Success
+  /mail/send-mail:
+    get:
+      tags:
+      - mail
+      description: 自定义邮件发送
+      operationId: MailCtrl.自定义邮件发送
+      parameters:
+      - in: query
+        name: mail
+        description: 邮箱
+        required: true
+        type: string
+      - in: query
+        name: title
+        description: 邮件标题
+        type: string
+      - in: query
+        name: content
+        description: 邮件内容
+        type: string
+      responses:
+        "200":
+          description: msg=Success
+  /mail/update-mail-config:
+    get:
+      tags:
+      - mail
+      description: 更新邮件模板
+      operationId: MailCtrl.更新邮件模板
+      parameters:
+      - in: query
+        name: eId
+        description: 模板邮件表ID
+        required: true
+        type: string
+      - in: query
+        name: emailTitle
+        description: 模板邮件标题
+        required: true
+        type: string
+      - in: query
+        name: emailContent
+        description: 模板邮件内容
+        required: true
+        type: string
+      responses:
+        "200":
+          description: msg=Success
+tags:
+- name: mail
+  description: |
+    网关层-邮件服务

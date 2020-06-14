@@ -1,0 +1,6 @@
+*.exe
+*.pid
+*.tmp
+*.zip
+/.idea
+/vendor
