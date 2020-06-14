@@ -1,0 +1,99 @@
+syntax = "proto3";
+
+/**
+ * 注:
+ *  1) request参数格式: 小驼峰命名,如: emailName
+ *  2) response参数格式:
+ *           对应数据库行记录,下划线命名,如: email_name
+ *           列表返回参数统一为: page,pageSize,totalCount,list
+ *  3) 业务代码中调用request属性时,req.EmailName // 因为emailName命名会被定义到struct中(struct首字母大写表示public属性,外部可调用)
+ *
+ */
+// 共用响应格式
+message Response {
+    int64 code = 1; // 错误码
+    string msg = 2; // 错误信息
+    repeated string data= 3; // 数组 返回数据
+}
+
+/**
+ * 邮件操作
+ */
+// 发送邮件
+message SendMailRequest {
+    string mail = 3;    // 邮箱
+    string title = 4;   // 邮件标题
+    string content = 5; // 邮件内容
+    string SerialNo = 8; // 流水号
+}
+message SendMailResponse {
+    int64 code = 1; // 错误码
+    string msg = 2; // 错误信息
+    repeated string data= 3; // 数组 返回数据
+}
+
+/*
+ * 邮件模板配置
+ */
+// 获取邮件模板列表/详情
+message GetMailConfigListRequest {
+    int64 page = 8;      //当前页数
+    int64 pageSize = 9; // 每页显示数
+    string SerialNo = 10; // 流水号 [用于微服务全链路日志追踪]
+}
+message GetMailConfigListResponse {
+    int64 code = 1; // 错误码
+    string msg = 2; // 错误信息
+    MailConfigList data = 3;    // 分页信息
+}
+// 分页列表 {TotalCount:30,Page:1,PageSize:20,List:[map,map,map,...]}
+message MailConfigList {
+    int64 totalCount = 1;   // 总数
+    int64 page = 2;         // 当前页数
+    int64 pageSize = 3;     // 每页显示数
+    repeated MailConfigSingle list = 4;
+}
+// 单条
+message MailConfigSingle {
+    string e_id = 1;            // 邮件模板表ID
+    string e_add_dt = 4;        // 添加时间
+    string e_modify_dt = 5;     // 更新时间
+    string email_content = 7;   // 邮件内容
+    string email_title = 8;     // 邮件标题
+    string email_name = 11;     // 邮件模板名(唯一)
+}
+
+// 添加邮件模板
+message AddMailConfigRequest {
+    string emailName = 2;   // 邮件模板名
+    string emailTitle = 3;  // 模板邮件标题
+    string emailContent = 4;    // 模板邮件内容
+    string SerialNo = 8; // 流水号 [用于微服务全链路日志追踪]
+}
+message AddMailConfigResponse {
+    int64 code = 1; // 错误码
+    string msg = 2; // 错误信息
+    repeated string data= 3; // 数组 返回数据
+}
+// 更新模板内容
+message UpdateMailConfigRequest {
+    int64 eId = 2;   // 邮件模板表ID
+    string emailName = 3;   // 邮件模板名
+    string emailTitle = 4;  // 模板邮件标题
+    string emailContent = 5;    // 模板邮件内容
+    string SerialNo = 8; // 流水号 [用于微服务全链路日志追踪]
+}
+message UpdateMailConfigResponse {
+    int64 code = 1; // 错误码
+    string msg = 2; // 错误信息
+    repeated string data= 3; // 数组 返回数据
+}
+
+// 邮箱系统服务
+service Mail {
+    rpc SendMail (SendMailRequest) returns (SendMailResponse){} // 发送邮件[单条/批量]
+    // 邮件模板
+    rpc GetMailConfigList (GetMailConfigListRequest) returns (GetMailConfigListResponse){}  // 邮件模板列表/详情
+    rpc AddMailConfig (AddMailConfigRequest) returns (AddMailConfigResponse){}              // 添加邮件模板
+    rpc UpdateMailConfig (UpdateMailConfigRequest) returns (UpdateMailConfigResponse){}     // 更新邮件模板
+}

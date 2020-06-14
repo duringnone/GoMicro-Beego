@@ -1,6 +1,8 @@
 # 微服务demo
 
-因历史原因,业务采用Beego为web框架,本demo旨在助力尽快落地beego+go-micro,尽量精简,如有异议,欢迎交流
+因历史原因,业务采用Beego为web框架,为兼容历史版本;结合beego+gomicro开发,但寻无果,故自行兼容;
+
+本demo旨在助力尽快落地beego+go-micro,尽量精简,如有异议,欢迎交流
 
 
 
