@@ -26,13 +26,15 @@ Linux v.3.10.0-957.el7.x86_64	// 服务器CentOS.7.0.*版本
 
 
 
-### GoMicro架构图![microService_struct](.\README-img\microService_struct.png)
+### GoMicro架构图
+
+ <https://github.com/duringnone/GoMicro-Beego/blob/master/README-img/microService_struct.png> 
 
 
 
 ### 真实/demo架构图
 
-![microService_struct](.\README-img\demo_struct.png)
+<https://github.com/duringnone/GoMicro-Beego/blob/master/README-img/demo_struct.png> ![microService_struct]()
 
 
 
