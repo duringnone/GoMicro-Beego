@@ -146,7 +146,7 @@ https://github.com/duringnone/GoMicro-Beego/blob/master/README-img/demo_struct.p
 		2) 微服务可自动获取最新版本依赖包,配合go-micro初始化时,自动加载
 		3) go mod可自动拉取指定版本的依赖包,故无需开发者手动下载,打包,上线依赖包,提供开发流程效率,也节省了项目的存储空间
 		4) 若需了解 项目相关依赖包,可到 GOPATH/pkg下查看; 也可执行 go mod vendor,将依赖包导入到当前项目根目录vendor目录下
-		
+		5) go mod更多详情,可查看煎鱼的Go Module入门教学,很详细很受用: https://eddycjy.com/posts/go/go-moduels/2020-02-28-go-modules/
 		
 ```
 
