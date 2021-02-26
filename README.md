@@ -153,6 +153,52 @@ https://github.com/duringnone/GoMicro-Beego/blob/master/README-img/demo_struct.p
 
 
 
+### 更新内容-20210226
+
+```
+更新内容：
+	1）交流群码
+	2）go mod拉取问题：
+		A）需求：
+				go mod拉取非master分支代码 （go mod 可以拉取除master分支的最新版本git代码么,比如dev分支最新版本）
+		B）我的场景:
+				现在有2个服务user,login,user会调用login; user和login都在dev分支迭代开发, 基于go mod, 在dev环境下, 如何实现的user调用login
+		C）go.mod文件内容格式：		
+        module github.com/duringnone/microproto
+
+        go 1.13
+
+        require (
+					github.com/duringnone/commproto v0.0.0-20201230113637-4a1965d03eaa
+          github.com/micro/go-micro/v2 v2.9.0 // indirect
+        )
+	
+			分析格式: 
+					github.com/duringnone/commproto v0.0.0-20201230113637-4a1965d03eaa		// 4a1965d03eaa 是git仓库的commitId的前12位(可在git仓库查看，或本地git仓库执行"git log")
+					
+			D) 解决方案：
+				a) 方案1: 发布到master分支，并打tag，go.mod中应用tag作为版本号；如：”github.com/micro/go-micro/v2 v2.9.0“ 中的“v2.9.0”对应master的tag,tag=v2.9.0
+				b) 方案2: 引入指定branch分支名，或指定commitID；步骤如下：
+						1) go clean -modcache // 清除本地go mod缓存
+						2） 修改引用包的版本号：【2种任选一种】
+		           A） github.com/duringnone/commproto dev // 第一种：指定分支最新版本代码
+		           B） github.com/duringnone/commproto 1483a79ff755e6b4857915bae9b3b5e656a21c05 // 第二种：指定代码版本commitID
+						3）go run main.go // 执行/编译入口文件
+				
+				
+			E）注意： 
+					1）go mod默认拉取master分支最新版本代码，版本号默认格式如：“v0.0.0-20201230113637-4a1965d03eaa”
+					2）引用master分支的tag作为版本号
+					3）引入dev分支最新版本代码，方案
+					4）引入commitID； （因为git中commitID是全局唯一的，跨分支全局）
+					5) go mod / go get 底层其实都是基于git 命令的封装
+
+
+
+```
+
+
+
 ### 完整Micro服务结构目录 [更详细的在具体项目中]
 
 ```
