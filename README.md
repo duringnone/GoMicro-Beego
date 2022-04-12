@@ -112,13 +112,19 @@ https://github.com/duringnone/GoMicro-Beego/blob/master/README-img/demo_struct.p
             set GOSUM="off"	// 关闭包地址校验
             set GOPROXY="https://goproxy.cn,direct"	// 大陆地区使用七牛云的 goproxy.cn 代理会更快(尤其是涉及墙的包,但墙外包goproxy.cn可能有一定延迟,笔者最长遇到10分钟左右延迟)
 		
-            [windows环境]
+            [windows/MacOS环境]
             unset GOPRIVATE	// 删除原配置
              unset GOSUM	// 删除原配置
             unset GOPROXY	// 删除原配置
             set GOPRIVATE="git.test.com,git.demo.com" // 配置私有仓库域名,多个用英文逗号隔开
              set GOSUM="off"	// 关闭包地址校验
             set GOPROXY="https://goproxy.cn,direct"	// 设置代理
+            
+            [windows环境]
+            go env -w  GOPRIVATE="git.demo.com,git.test.com" // 配置私有仓库域名（多个）
+            go env -w GOSUM="off"	// 关闭包地址校验
+            go env -w GOPROXY="https://goproxy.cn,direct"	// 设置代理
+            
 		3) 配置私有仓库时,若仓库只能https登录拉取代码,会有一个问题: 每次git pull都需输入用户名,密码;而线上一般为自动操作,无法手动输入密码; 此时则需更改git全局配置,设置记住密码,只需第一次git pull输入一次密码后就可;操作如下:
             A) vim /root/.gitconfig	// 打开服务器git全局配置,linux一般是/root/.gitconfig
             B) 增加2行,作用是记住第一次手动输入的密码
